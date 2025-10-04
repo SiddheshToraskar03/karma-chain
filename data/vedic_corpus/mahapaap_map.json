@@ -1,0 +1,130 @@
+{
+  "actions": {
+    "cheat": {
+      "class": "medium",
+      "description": "Dishonesty and deception",
+      "references": [
+        {
+          "source": "Bhagavad Gita",
+          "chapter": "16",
+          "verse": "4",
+          "text": "Hypocrisy, arrogance, pride, anger, harshness, and ignorance belong to one who is born for a demonic nature."
+        },
+        {
+          "source": "Manusmriti",
+          "chapter": "4",
+          "verse": "236",
+          "text": "Let him not, even though in pain, speak words cutting others to the quick."
+        }
+      ]
+    },
+    "disrespect_guru": {
+      "class": "medium",
+      "description": "Disrespect towards teachers and elders",
+      "references": [
+        {
+          "source": "Bhagavad Gita",
+          "chapter": "4",
+          "verse": "34",
+          "text": "Learn the Truth by approaching a spiritual master. Inquire from him with reverence and render service unto him."
+        },
+        {
+          "source": "Taittiriya Upanishad",
+          "chapter": "1",
+          "verse": "11",
+          "text": "Revere your teacher as a god."
+        }
+      ]
+    },
+    "break_promise": {
+      "class": "minor",
+      "description": "Breaking one's word or commitment",
+      "references": [
+        {
+          "source": "Manusmriti",
+          "chapter": "8",
+          "verse": "138",
+          "text": "A man who has given a promise to another must fulfill it exactly as promised."
+        },
+        {
+          "source": "Mahabharata",
+          "section": "Shanti Parva",
+          "chapter": "110",
+          "text": "Truth is the foundation of righteousness."
+        }
+      ]
+    },
+    "harm_others": {
+      "class": "maha",
+      "description": "Causing harm to other beings",
+      "references": [
+        {
+          "source": "Bhagavad Gita",
+          "chapter": "16",
+          "verse": "9",
+          "text": "Following such conclusions, the demoniac, who are lost to themselves and who have no intelligence, engage in unbeneficial, horrible works meant to destroy the world."
+        },
+        {
+          "source": "Chandogya Upanishad",
+          "chapter": "3",
+          "verse": "17",
+          "text": "Ahimsa (non-violence) is the highest virtue."
+        }
+      ]
+    },
+    "false_speech": {
+      "class": "minor",
+      "description": "Speaking falsehoods or lies",
+      "references": [
+        {
+          "source": "Bhagavad Gita",
+          "chapter": "17",
+          "verse": "15",
+          "text": "Austerity of speech consists in speaking words that are truthful, pleasing, beneficial, and not agitating to others."
+        },
+        {
+          "source": "Manusmriti",
+          "chapter": "4",
+          "verse": "138",
+          "text": "Let him speak the truth, let him speak what is pleasing, let him not speak truth that is unpleasant."
+        }
+      ]
+    },
+    "theft": {
+      "class": "medium",
+      "description": "Taking what is not given",
+      "references": [
+        {
+          "source": "Manusmriti",
+          "chapter": "8",
+          "verse": "47",
+          "text": "A king who punishes thieves according to the law will gain fame in this world and unsurpassed bliss after death."
+        },
+        {
+          "source": "Yajnavalkya Smriti",
+          "chapter": "2",
+          "verse": "23",
+          "text": "Theft is taking another's property without permission."
+        }
+      ]
+    },
+    "violence": {
+      "class": "maha",
+      "description": "Causing physical harm or injury",
+      "references": [
+        {
+          "source": "Bhagavad Gita",
+          "chapter": "13",
+          "verse": "8",
+          "text": "Nonviolence, truthfulness, freedom from anger, renunciation, tranquility, aversion to faultfinding..."
+        },
+        {
+          "source": "Patanjali Yoga Sutras",
+          "chapter": "2",
+          "verse": "35",
+          "text": "When non-violence in speech, thought and action is established, one's aggressive nature is relinquished and others abandon hostility in one's presence."
+        }
+      ]
+    }
+  }
+}
