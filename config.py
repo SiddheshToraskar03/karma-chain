@@ -98,11 +98,11 @@ LOKA_THRESHOLDS = {
     "Naraka": {"min_karma": float('-inf'), "max_karma": -201, "description": "Lower realm of purification through suffering"}
 }
 
-# Rewards for completing atonement
+# Rewards for completing atonement - add to PaapTokens based on severity
 ATONEMENT_REWARDS = {
-    "minor": {"token": "DharmaPoints", "value": 2},
-    "medium": {"token": "DharmaPoints", "value": 5},
-    "maha": {"token": "SevaPoints", "value": 10}
+    "minor": {"token": "PaapTokens.minor", "value": 2},
+    "medium": {"token": "PaapTokens.medium", "value": 5},
+    "maha": {"token": "PaapTokens.maha", "value": 10}
 }
 
 LEVEL_THRESHOLDS = {

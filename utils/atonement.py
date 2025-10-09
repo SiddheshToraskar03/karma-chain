@@ -1,7 +1,9 @@
 from datetime import datetime, timezone
-from config import PRAYASCHITTA_MAP
+from config import PRAYASCHITTA_MAP, ATONEMENT_REWARDS
 from database import users_col, transactions_col, appeals_col, atonements_col
 from bson import ObjectId
+from utils.qlearning import atonement_q_learning_step
+from utils.merit import compute_user_merit_score, determine_role_from_merit
 
 def serialize_mongodb_doc(doc):
     """Helper function to serialize MongoDB documents"""
@@ -148,37 +150,8 @@ def validate_atonement_proof(plan_id, atonement_type, amount, proof_text=None, t
             break
     
     if is_complete:
-        # Update status to completed
-        atonements_col.update_one(
-            {"plan_id": plan_id},
-            {"$set": {"status": "completed"}}
-        )
-        plan["status"] = "completed"
-        
-        # Get user data
-        user = users_col.find_one({"user_id": plan["user_id"]})
-        
-        # Reduce Paap tokens when atonement is complete
-        if user and "PaapTokens" in user["balances"] and plan["severity_class"] in user["balances"]["PaapTokens"]:
-            # Reduce by a fixed percentage (50%)
-            reduction = user["balances"]["PaapTokens"][plan["severity_class"]] * 0.5
-            user["balances"]["PaapTokens"][plan["severity_class"]] -= reduction
-            
-            # Record the transaction
-            transactions_col.insert_one({
-                "user_id": user["user_id"],
-                "type": "atonement_completion",
-                "token": f"PaapTokens.{plan['severity_class']}",
-                "amount": -reduction,
-                "timestamp": datetime.now(timezone.utc),
-                "plan_id": plan_id
-            })
-            
-            # Update user balances
-            users_col.update_one(
-                {"user_id": user["user_id"]},
-                {"$set": {"balances": user["balances"]}}
-            )
+        # Use the dedicated completion function to handle all updates
+        mark_atonement_completed(plan["user_id"], plan_id)
     
     return True, "Atonement progress updated", serialize_mongodb_doc(plan)
 
@@ -200,3 +173,59 @@ def get_user_atonement_plans(user_id, status=None):
     
     plans = list(atonements_col.find(query))
     return [serialize_mongodb_doc(plan) for plan in plans]
+
+def mark_atonement_completed(user_id: str, atonement_plan_id: str):
+    """
+    Mark an atonement plan as completed and apply all rewards/updates.
+    This function handles the complete completion flow including:
+    - Reducing PaapTokens by 50%
+    - Applying Q-learning rewards
+    - Recalculating merit score and role
+    - Recording the completion transaction
+    """
+    # Get the atonement plan
+    atonement = atonements_col.find_one({
+        'plan_id': atonement_plan_id,
+        'user_id': user_id
+    })
+    
+    if not atonement:
+        return False
+    
+    # Get severity class (handle both field names)
+    severity_class = atonement.get('severity_class') or atonement.get('paap_class')
+    if not severity_class:
+        return False
+    
+    # Get user data
+    user = users_col.find_one({'user_id': user_id})
+    if not user:
+        return False
+    
+    # Apply Q-learning rewards for atonement completion
+    severity_class = atonement.get('severity_class') or atonement.get('paap_class')
+    if severity_class:
+        # This will add rewards to PaapTokens based on severity
+        reward_value, new_role = atonement_q_learning_step(user_id, severity_class)
+        
+        # Record completion transaction for the reward
+        if reward_value > 0:
+            transactions_col.insert_one({
+                'user_id': user_id,
+                'type': 'atonement_completion_reward',
+                'token': f'PaapTokens.{severity_class}',
+                'amount': reward_value,
+                'timestamp': datetime.now(timezone.utc),
+                'plan_id': atonement_plan_id
+            })
+    
+    # Mark atonement as completed
+    atonements_col.update_one(
+        {'plan_id': atonement_plan_id},
+        {'$set': {
+            'status': 'completed',
+            'completed_at': datetime.now(timezone.utc)
+        }}
+    )
+    
+    return True

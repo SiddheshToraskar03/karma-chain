@@ -24,7 +24,7 @@ wheels/
 venv/
 ENV/
 env/
-.env
+myenv/
 
 # IDE
 .idea/
@@ -37,6 +37,9 @@ env/
 *.log
 *.sqlite3
 *.db
+uploads/
+backups/
+logs/
 
 # Environment variables
 .env
@@ -52,25 +55,6 @@ htmlcov/
 coverage.xml
 *.cover
 .hypothesis/
-
-# Distribution / packaging
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -95,3 +79,18 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# MongoDB data
+mongo-data/
+data/db/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/

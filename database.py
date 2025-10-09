@@ -11,6 +11,7 @@ qtable_col = db["q_table"]
 appeals_col = db["appeals"]
 atonements_col = db["atonements"]
 death_events_col = db["death_events"]
+karma_events_col = db["karma_events"]  # New collection for unified events
 
 # Function to get database instance
 def get_db():
