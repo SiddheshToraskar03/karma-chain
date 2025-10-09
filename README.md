@@ -1,4 +1,4 @@
-# KarmaChain v2.1 (Unified Event Gateway)
+# KarmaChain v2.1
 
 A comprehensive karma tracking system with unified event processing, file upload support, and multi-department integration capabilities.
 
